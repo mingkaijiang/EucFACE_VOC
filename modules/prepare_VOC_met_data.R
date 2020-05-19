@@ -1,4 +1,4 @@
-prepare_VOC_met_data <- function(laiDF) {
+prepare_VOC_met_data <- function() {
     
     ### Prepare hourly met data
     rainDF <- prepare_rainfall_data(plot.image=F, timestep="Hourly")
@@ -56,28 +56,28 @@ prepare_VOC_met_data <- function(laiDF) {
     
     
     ### Assign LAI data onto met data frame
-    d.list <- unique(laiDF$Date)
-    
-    for (i in 1:length(d.list)) {
-        cDF$LAI_R1[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==1 & laiDF$Date==d.list[i]]
-        cDF$LAI_R2[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==2 & laiDF$Date==d.list[i]]
-        cDF$LAI_R3[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==3 & laiDF$Date==d.list[i]]
-        cDF$LAI_R4[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==4 & laiDF$Date==d.list[i]]
-        cDF$LAI_R5[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==5 & laiDF$Date==d.list[i]]
-        cDF$LAI_R6[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==6 & laiDF$Date==d.list[i]]
-    }
-    
+    #d.list <- unique(laiDF$Date)
+    #
+    #for (i in 1:length(d.list)) {
+    #    cDF$LAI_R1[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==1 & laiDF$Date==d.list[i]]
+    #    cDF$LAI_R2[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==2 & laiDF$Date==d.list[i]]
+    #    cDF$LAI_R3[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==3 & laiDF$Date==d.list[i]]
+    #    cDF$LAI_R4[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==4 & laiDF$Date==d.list[i]]
+    #    cDF$LAI_R5[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==5 & laiDF$Date==d.list[i]]
+    #    cDF$LAI_R6[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==6 & laiDF$Date==d.list[i]]
+    #}
+    #
     ### Cut off dates 20180101 to 20181231
     cDF <- subset(cDF, Date>="2018-01-01")
     cDF <- subset(cDF, Date<="2018-12-31")
     
     ### Linear interpolation of missing values
-    cDF$LAI_R1 <- na.approx(cDF$LAI_R1, na.rm=T)
-    cDF$LAI_R2 <- na.approx(cDF$LAI_R2, na.rm=T)
-    cDF$LAI_R3 <- na.approx(cDF$LAI_R3, na.rm=T)
-    cDF$LAI_R4 <- na.approx(cDF$LAI_R4, na.rm=T)
-    cDF$LAI_R5 <- na.approx(cDF$LAI_R5, na.rm=T)
-    cDF$LAI_R6 <- na.approx(cDF$LAI_R6, na.rm=T)
+    #cDF$LAI_R1 <- na.approx(cDF$LAI_R1, na.rm=T)
+    #cDF$LAI_R2 <- na.approx(cDF$LAI_R2, na.rm=T)
+    #cDF$LAI_R3 <- na.approx(cDF$LAI_R3, na.rm=T)
+    #cDF$LAI_R4 <- na.approx(cDF$LAI_R4, na.rm=T)
+    #cDF$LAI_R5 <- na.approx(cDF$LAI_R5, na.rm=T)
+    #cDF$LAI_R6 <- na.approx(cDF$LAI_R6, na.rm=T)
     
     cDF$Tair <- na.approx(cDF$Tair, na.rm=T)
     cDF$RH <- na.approx(cDF$RH, na.rm=T)
@@ -133,8 +133,10 @@ prepare_VOC_met_data <- function(laiDF) {
     
     out <- cDF[,c("DateHour", "TempK", "TEMP_24", "TEMP_240", 
                   "PAR", "PAR_24", "PAR_240", "RH", "Wind", "Rain",
-                  "D2PRES", "LAI_R1", "LAI_R2", "LAI_R3", "LAI_R4",
-                  "LAI_R5", "LAI_R6", "SM_R1", "SM_R2", "SM_R3",
+                  "D2PRES", 
+                  #"LAI_R1", "LAI_R2", "LAI_R3", "LAI_R4",
+                  #"LAI_R5", "LAI_R6", 
+                  "SM_R1", "SM_R2", "SM_R3",
                   "SM_R4", "SM_R5", "SM_R6")]
     
     write.csv(out, "output/VOC_met_data.csv")
