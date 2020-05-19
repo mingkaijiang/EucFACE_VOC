@@ -28,9 +28,9 @@ prepare_met_air_data <- function(timestep) {
     
     
     ### Save  data
-    write.csv(hDF, "R_other/met_air_flux_data_hourly.csv", row.names=F)
-    write.csv(dDF, "R_other/met_air_flux_data_daily.csv", row.names=F)
-    write.csv(mDF, "R_other/met_air_flux_data_monthly.csv", row.names=F)
+    write.csv(hDF, "output/met_air_flux_data_hourly.csv", row.names=F)
+    write.csv(dDF, "output/met_air_flux_data_daily.csv", row.names=F)
+    write.csv(mDF, "output/met_air_flux_data_monthly.csv", row.names=F)
     
     if (timestep=="Monthly") {
         return(mDF)

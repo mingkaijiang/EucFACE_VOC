@@ -23,11 +23,12 @@ pacman::p_load(dplyr,
                doBy, 
                readxl,
                lubridate,
-               ggplot2)    
+               ggplot2,
+               zoo)    
 
 
 #### Loading constants
-source("definitions/constants.R")
+source("definitions.R")
 
 #### Sourcing all R files in the modules subdirectory
 sourcefiles <- dir("modules", pattern="[.]R$", recursive = TRUE, full.names = TRUE)

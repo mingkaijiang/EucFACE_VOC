@@ -5,8 +5,8 @@ prepare_VOC_met_data <- function(laiDF) {
     tair_rh_par_presDF <- prepare_met_air_data(timestep="Hourly")
     
     ### Read met input
-    DF1 <- read.csv("R_other/met_air_flux_data_hourly.csv")
-    DF2 <- read.csv("R_other/rainfall_data_hourly.csv")
+    DF1 <- read.csv("output/met_air_flux_data_hourly.csv")
+    DF2 <- read.csv("output/rainfall_data_hourly.csv")
     
     ### Read VOC basal rate and LAI
     #download_voc_data()
@@ -77,12 +77,11 @@ prepare_VOC_met_data <- function(laiDF) {
         cDF$LAI_R6[cDF$Date==d.list[i]] <- laiDF$lai_variable[laiDF$Ring==6 & laiDF$Date==d.list[i]]
     }
     
-    ### Cut off dates 2012-10-26 to 2017-01-01
-    cDF <- subset(cDF, Date>="2012-10-26")
-    cDF <- subset(cDF, Date<="2017-01-01")
+    ### Cut off dates 20180101 to 20181231
+    cDF <- subset(cDF, Date>="2018-01-01")
+    cDF <- subset(cDF, Date<="2018-12-31")
     
     ### Linear interpolation of missing values
-    require(zoo)
     cDF$LAI_R1 <- na.approx(cDF$LAI_R1, na.rm=T)
     cDF$LAI_R2 <- na.approx(cDF$LAI_R2, na.rm=T)
     cDF$LAI_R3 <- na.approx(cDF$LAI_R3, na.rm=T)
@@ -148,6 +147,6 @@ prepare_VOC_met_data <- function(laiDF) {
                   "LAI_R5", "LAI_R6", "SM_R1", "SM_R2", "SM_R3",
                   "SM_R4", "SM_R5", "SM_R6")]
     
-    write.csv(out, "R_other/VOC_met_data.csv")
+    write.csv(out, "output/VOC_met_data.csv")
     
 }
