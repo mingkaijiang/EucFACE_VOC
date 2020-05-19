@@ -8,16 +8,6 @@ prepare_VOC_met_data <- function(laiDF) {
     DF1 <- read.csv("output/met_air_flux_data_hourly.csv")
     DF2 <- read.csv("output/rainfall_data_hourly.csv")
     
-    ### Read VOC basal rate and LAI
-    #download_voc_data()
-    #vocDF <- read.csv(file.path(getToPath(), 
-    #                           "FACE_P0044_RA_ISOPRENE_2013-15_RAW_V1.csv"))
-    
-    
-    ## example DF
-    #bDF <- read.table("~/Documents/Research/Projects/EucFACE_C_Balance/VOC/data.txt")
-    
-    
     ### Update date column names to be consistent
     names(DF1)[1] <- names(DF2)[1] <- "DateHour"
     myDF <- merge(DF1, DF2, by.x="DateHour", all=T)

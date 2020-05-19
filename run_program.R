@@ -17,3 +17,10 @@ lai_variable <- make_lai_variable()
 
 ### prepare VOC
 prepare_VOC_met_data(laiDF=lai_variable)
+
+### delete raw data
+system(paste0("rm -r data"))
+
+
+
+## end
